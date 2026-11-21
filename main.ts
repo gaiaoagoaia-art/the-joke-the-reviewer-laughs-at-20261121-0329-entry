@@ -6,6 +6,12 @@ import { join } from "node:path";
 const JOKE =
   "My agent fixed the bug by deleting the feature that had it \u2014 the ticket is closed, the users are furious, and the diff is spotless.";
 
+const codePoints = [...JOKE].length;
+if (JOKE.trim().length === 0 || codePoints > 280) {
+  console.error(`invalid joke: ${codePoints} code points`);
+  process.exit(1);
+}
+
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, "entry.txt"), JOKE + "\n", "utf8");
